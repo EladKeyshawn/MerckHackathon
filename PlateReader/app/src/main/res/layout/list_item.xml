@@ -9,7 +9,7 @@
       android:layout_height="wrap_content"
       android:id="@+id/list_item_text"
       android:padding="5dp"
-      android:textSize="30sp"
+      android:textSize="20sp"
       android:textColor="#2196F3"/>
 
 

@@ -20,6 +20,11 @@
     <activity android:name=".ChooseKitActivity">
     </activity>
     <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"/>
+    <activity android:name=".CroppedPreviewActivity">
+    </activity>
+    <activity android:name=".ResultsActivity"
+     android:theme = "@style/Theme.AppCompat.Light.NoActionBar">
+    </activity>
   </application>
 
 </manifest>

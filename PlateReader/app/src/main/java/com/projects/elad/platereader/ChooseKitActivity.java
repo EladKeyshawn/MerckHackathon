@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,6 +30,8 @@ public class ChooseKitActivity extends AppCompatActivity implements AdapterView.
   private ArrayAdapter<String> kitAdapter;
   private ArrayList<String> kitsContents;
   private ImageView croppedImage;
+  private Toolbar toolbar;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -36,10 +39,13 @@ public class ChooseKitActivity extends AppCompatActivity implements AdapterView.
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     getSupportActionBar().setDisplayShowHomeEnabled(true);
     kitsContents = new ArrayList<>();
-    kitsContents.add("Kit 1");
-    kitsContents.add("Kit 2");
-    kitsContents.add("Kit 3");
-    kitsContents.add("Kit 4");
+    kitsContents.add("Acid Phosphatase Assay Kit");
+    kitsContents.add("Protein Concentration Assay Kit");
+    kitsContents.add("Ammonia Assay Kit");
+    kitsContents.add("Lactose Assay Kit");
+    kitsContents.add("Glucose Assay Kit");
+    kitsContents.add("ADP/ATP Assay Kit");
+    kitsContents.add("Citrate Assay Kit");
     kitsList = (ListView) findViewById(R.id.choose_kit_listview);
     croppedImage = (ImageView) findViewById(R.id.cropped_preview);
     kitAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.list_item, R.id.list_item_text, kitsContents);
@@ -77,15 +83,9 @@ public class ChooseKitActivity extends AppCompatActivity implements AdapterView.
         CropImage.ActivityResult result = CropImage.getActivityResult(data);
         if (resultCode == RESULT_OK) {
           Uri resultUri = result.getUri();
-          Toast.makeText(this,resultUri.toString(),Toast.LENGTH_LONG).show();
-          try {
-            Bitmap  croppedImageBitMap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), resultUri);
-            croppedImage.setImageBitmap(croppedImageBitMap);
-          } catch (IOException e) {
-            e.printStackTrace();
-          }
-
-
+          Intent intent = new Intent(this, CroppedPreviewActivity.class);
+          intent.putExtra("resultUri", resultUri.toString());
+          startActivity(intent);
         } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
           Exception error = result.getError();
         }
